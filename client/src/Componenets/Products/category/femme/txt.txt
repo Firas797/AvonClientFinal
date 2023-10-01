@@ -1,0 +1,109 @@
+product jawo bhy ygety l img 
+import React, { useState } from 'react';
+import allProducts from '../../../../redux/Products/AllProducts';
+import Modal from 'react-bootstrap/Modal';
+import b1 from '../../img/0108200_1.png'
+function SoinVisageandCorps() {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const openModal = (image) => {
+    const product = allProducts.find(item => item['N°'] === image);
+    setSelectedImage(image);
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const handleAcheterClick = (item) => {
+    // Handle the logic for adding to cart here
+    // For example: dispatch(addToCart(item));
+  };
+
+  // Filter products with category "SOIN VISAGE" or "SOIN CORPOREL"
+  const filteredProducts = allProducts.filter(
+    product =>
+      product['Catégorie'] === 'SOIN VISAGE' ||
+      product['Catégorie'] === 'SOIN CORPOREL'
+  );
+
+  return (
+    <div>
+      <section className="product_section layout_padding">
+        <div className="container">
+          <div className="row">
+          {filteredProducts
+  .filter(product => {
+    // Check if the image for this product exists
+    try {
+      require(`../../img/${product['N°']}_1.png`);
+      return true; // Image exists, include this product
+    } catch (error) {
+      return false; // Image doesn't exist, exclude this product
+    }
+  })
+  .map(product => (
+    <div key={product['N°']} className="col-sm-6 col-md-4 col-lg-4">
+      <div className="box">
+        <div className="option_container">
+          {/* Add a button to open the modal */}
+          <button className="acheter-button" onClick={() => openModal(product['N°'])}>
+            Voir
+          </button>
+        </div>
+        <div className="img-box">
+          {/* Dynamically import the image based on the product ID */}
+          <img
+            src={require(`../../img/${product['N°']}_1.png`)} // Original image
+            alt="Selected"
+            className="modal-image"
+            onError={(e) => {
+              // Handle image not found, switch to the fallback image
+              e.target.src = {b1}; // Fallback image path (relative)
+            }}
+          />
+        </div>
+        <hr />
+        <hr />
+        <div className="detail-box">
+          <h5>{product['Description article']}</h5>
+          <h6>{product['Prix spécial']}DT</h6>
+        </div>
+      </div>
+    </div>
+  ))
+}
+
+
+          </div>
+        </div>
+      </section>
+      <Modal show={showModal} onHide={closeModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Image Preview</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          
+    {selectedImage && (
+      <img
+      src={require(`../../img/${selectedImage['N°']}_1.png`)}
+      alt="Selected"
+        className="modal-image"
+      />
+    )}
+          <div className="modal-button-container">
+            {/* Add your "Acheter" button here */}
+            <button onClick={() => handleAcheterClick(selectedProduct)}>Acheter</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </div>
+  );
+}
+
+export default SoinVisageandCorps;
+

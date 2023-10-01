@@ -1,0 +1,67 @@
+/* Dproductt.css */
+/* ... your existing CSS ... */
+.btnn {
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #FF69B4; /* Pink background color */
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.custom-pink-link {
+}
+.btnn:hover {
+  background-color: #FF1493; /* Darker pink background color on hover */
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  text-align: center;
+  color: #fff;
+  background-color: #FF1493;
+}
+
+.productt-container {
+  display: flex;
+  align-items: flex-start; /* Align items at the top */
+}
+
+.productt-container .img {
+  max-width: 40%; /* Adjust the image width as needed */
+  margin-left: 20px; /* Space between image and text */
+}
+
+.productt-info {
+  flex: 1;
+}
+.imgsolo{
+  font-size: 50px;
+  background-color: #000;
+}
+/* Additional styling as needed */
+.productt-info h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.productt-info h3 {
+  font-size: 1.2em;
+  color: #e74c3c;
+}
+@media (max-width: 768px) {
+  .productt-container {
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: center;
+  }
+  
+  .productt-container .img {
+    max-width: 100%; /* Full width on mobile */
+    margin-right: 0; /* Remove margin on mobile */
+    margin-bottom: 15px;
+  }
+  
+  .productt-info {
+    width: 100%;
+    text-align: center;
+  }
+}
